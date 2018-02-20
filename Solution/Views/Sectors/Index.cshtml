@@ -1,0 +1,46 @@
+﻿@model PaginatedList<Sector>
+
+<h2>List of sectors</h2>
+
+<a asp-action="Create" class="btn btn-link">Add new sector</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Sector name</th>
+            @*<th>Parent sector</th>*@
+            <th>Hierarchy level</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                @*<td>@item.SectorId</td>*@
+                <td>@item.HierarchyLevel</td>
+                <td>
+                    <a class="btn btn-info btn-xs" asp-action="Edit" asp-route-id="@item.Id">Edit sector</a>
+                    <a class="btn btn-danger btn-xs" asp-action="Delete" asp-route-id="@item.Id">Delete sector</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="Index"
+   asp-route-page="@(Model.PageIndex - 1)"
+   class="btn btn-default @prevDisabled">
+    Previous
+</a>
+<a asp-action="Index"
+   asp-route-page="@(Model.PageIndex + 1)"
+   class="btn btn-default @nextDisabled">
+    Next
+</a>

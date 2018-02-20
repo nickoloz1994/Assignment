@@ -5,6 +5,35 @@
     <UserSecretsId>aspnet-Solution-F9332484-469A-4BF1-B4C1-4645FD7BAD99</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Data\Migrations\20180217143652_initial_migration.cs" />
+    <Compile Remove="Data\Migrations\20180217143652_initial_migration.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180217151841_make_parentId_nullable.cs" />
+    <Compile Remove="Data\Migrations\20180217151841_make_parentId_nullable.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180217194817_add_UserName_to_UserSector.cs" />
+    <Compile Remove="Data\Migrations\20180217194817_add_UserName_to_UserSector.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180218085158_change_sector_selection_saving_method.cs" />
+    <Compile Remove="Data\Migrations\20180218085158_change_sector_selection_saving_method.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180218090753_initial_migration.cs" />
+    <Compile Remove="Data\Migrations\20180218090753_initial_migration.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180218092943_initial_migration.cs" />
+    <Compile Remove="Data\Migrations\20180218092943_initial_migration.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180218101530_initial_migration.cs" />
+    <Compile Remove="Data\Migrations\20180218101530_initial_migration.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180219074109_add_agreement_to_usersector.cs" />
+    <Compile Remove="Data\Migrations\20180219074109_add_agreement_to_usersector.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180220123558_initial_migration.cs" />
+    <Compile Remove="Data\Migrations\20180220123558_initial_migration.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180220123746_add_HL_to_sectors.cs" />
+    <Compile Remove="Data\Migrations\20180220123746_add_HL_to_sectors.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180220125456_initial.cs" />
+    <Compile Remove="Data\Migrations\20180220125456_initial.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180220130031_initial.cs" />
+    <Compile Remove="Data\Migrations\20180220130031_initial.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180220130833_initial.cs" />
+    <Compile Remove="Data\Migrations\20180220130833_initial.Designer.cs" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
@@ -16,6 +45,10 @@
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.1" />
     <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="2.0.0" />
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\lib\bower\" />
   </ItemGroup>
 
 </Project>

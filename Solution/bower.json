@@ -1,0 +1,7 @@
+{
+  "name": "asp.net",
+  "private": true,
+  "dependencies": {
+    "multiselect": "multiselect-two-sides#v2.5.0"
+  }
+}

@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication;
+﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Solution.Models;
 using Solution.Models.AccountViewModels;
 using Solution.Services;
+using System;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace Solution.Controllers
 {
@@ -226,6 +222,8 @@ namespace Solution.Controllers
                 {
                     _logger.LogInformation("User created a new account with password.");
 
+                    await _userManager.AddToRoleAsync(user, "Member");
+
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
                     await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
@@ -430,7 +428,6 @@ namespace Solution.Controllers
             return View();
         }
 
-
         [HttpGet]
         public IActionResult AccessDenied()
         {
@@ -459,6 +456,6 @@ namespace Solution.Controllers
             }
         }
 
-        #endregion
+        #endregion Helpers
     }
 }
