@@ -11,22 +11,33 @@
     <div class="form-group">
         <div class="row">
             <div class="col-xs-5">
-                <select class="form-control" size="10" multiple="multiple" asp-for="SelectedSectors">
+                <select class="form-control"
+                        size="10"
+                        multiple="multiple"
+                        asp-for="SelectedSectors">
                     @foreach (var item in Model.SectorSelectList)
                     {
                         switch (item.HierarchyLevel)
                         {
                             case 0:
-                                <option value="@item.Id"> @item.Name </option>
+                                <option value="@item.Id">
+                                    @item.Name
+                                </option>
                                 break;
                             case 1:
-                                <option value="@item.Id">&nbsp;&nbsp;&nbsp;&nbsp; @item.Name </option>
+                                <option value="@item.Id">
+                                    &nbsp;&nbsp;&nbsp;&nbsp; @item.Name
+                                </option>
                                 break;
                             case 2:
-                                <option value="@item.Id">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @item.Name </option>
+                                <option value="@item.Id">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @item.Name
+                                </option>
                                 break;
                             default:
-                                <option value="@item.Id">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @item.Name </option>
+                                <option value="@item.Id">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @item.Name
+                                </option>
                                 break;
                         }
                     }

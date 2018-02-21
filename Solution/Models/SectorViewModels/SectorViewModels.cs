@@ -6,7 +6,7 @@ namespace Solution.Models.SectorViewModels
     {
         public int? ParentSectorId { get; set; }
         public string Name { get; set; }
-        public IEnumerable<Sector> ParentSectorSelectList { get; set; }
+        public IEnumerable<Sector> ParentSectorSelectList { get; set; } = new List<Sector>();
     }
 
     public class SectorEditViewModel

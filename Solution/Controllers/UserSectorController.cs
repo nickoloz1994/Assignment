@@ -42,7 +42,8 @@ namespace Solution.Controllers
         {
             var ownerId = _userManager.GetUserId(User);
 
-            var userSector = _userSectorRepository.GetAll().FirstOrDefault(r => r.UserId.Equals(ownerId));
+            var userSector = _userSectorRepository.GetAll()
+                                    .FirstOrDefault(r => r.UserId.Equals(ownerId));
             var vm = new UserSectorIndexViewModel();
 
             if (userSector != null)
@@ -64,7 +65,7 @@ namespace Solution.Controllers
         {
             var vm = new UserSectorCreateViewModel();
             var sectors = await _sectorRepository.GetAllAsync();
-            vm.SectorSelectList = GetCompleteList(sectors); //new SelectList(sectors, nameof(Sector.SectorId), nameof(Sector.Name));
+            vm.SectorSelectList = GetCompleteList(sectors);
             return View(vm);
         }
 
@@ -106,7 +107,7 @@ namespace Solution.Controllers
             }
 
             var sectors = _sectorRepository.GetAll();
-            vm.SectorSelectList = GetCompleteList(sectors); //new SelectList(sectors, nameof(Sector.SectorId), nameof(Sector.Name));
+            vm.SectorSelectList = GetCompleteList(sectors);
             return View(vm);
         }
 
@@ -136,7 +137,7 @@ namespace Solution.Controllers
             {
                 UserName = userSector.UserName,
                 ID = userSector.UserSectorId,
-                SectorSelectList = GetCompleteList(sectors), //new SelectList(_sectorRepository.GetAll(), nameof(Sector.SectorId), nameof(Sector.Name)),
+                SectorSelectList = GetCompleteList(sectors),
                 SelectionList = new SelectList(selectedSectors, nameof(Sector.Id), nameof(Sector.Name))
             };
 
@@ -149,25 +150,30 @@ namespace Solution.Controllers
         {
             if (ModelState.IsValid)
             {
-                StringBuilder builder = new StringBuilder();
-                string last = vm.NewSelection.Last();
+                var oldVersion = _userSectorRepository.Find(vm.ID);
 
-                foreach (var selection in vm.NewSelection)
+                if (vm.NewSelection.Any())
                 {
-                    if (!(selection.Equals(last, StringComparison.Ordinal)))
+                    StringBuilder builder = new StringBuilder();
+                    string last = vm.NewSelection.Last();
+
+                    foreach (var selection in vm.NewSelection)
                     {
-                        builder.Append(selection);
-                        builder.Append(",");
+                        if (!(selection.Equals(last, StringComparison.Ordinal)))
+                        {
+                            builder.Append(selection);
+                            builder.Append(",");
+                        }
+                        else
+                        {
+                            builder.Append(selection);
+                        }
                     }
-                    else
-                    {
-                        builder.Append(selection);
-                    }
+
+                    oldVersion.SelectedSectors = builder.ToString();
                 }
 
-                var oldVersion = _userSectorRepository.Find(vm.ID);
                 oldVersion.UserName = vm.UserName;
-                oldVersion.SelectedSectors = builder.ToString();
 
                 _userSectorRepository.Update(oldVersion);
                 await _context.SaveChangesAsync();

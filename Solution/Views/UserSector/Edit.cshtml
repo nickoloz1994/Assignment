@@ -6,34 +6,48 @@
     <input type="hidden" asp-for="ID" />
     <div class="form-group">
         <label asp-for="UserName"></label>
-        <input type="text" class="form-control" asp-for="UserName" value="@Model.UserName" />
+        <input type="text" class="form-control"
+               asp-for="UserName"
+               value="@Model.UserName" />
         <span asp-validation-for="UserName" class="text-danger"></span>
     </div>
     <div class="form-group">
         <div class="row">
             <div class="col-xs-5">
                 <label asp-for="SelectionList"></label>
-                <select class="form-control" size="10" multiple="multiple" asp-items="Model.SelectionList" disabled></select>
+                <select class="form-control" size="10" multiple="multiple"
+                        asp-items="Model.SelectionList" disabled></select>
             </div>
             <div class="col-xs-2"></div>
             <div class="col-xs-5">
                 <label asp-for="NewSelection"></label>
-                <select class="form-control" size="10" multiple="multiple" asp-for="NewSelection">
+                <select class="form-control"
+                        size="10"
+                        multiple="multiple"
+                        asp-for="NewSelection">
                     @foreach (var item in Model.SectorSelectList)
                     {
                         switch (item.HierarchyLevel)
                         {
                             case 0:
-                                <option value="@item.Id"> @item.Name </option>
+                                <option value="@item.Id">
+                                    @item.Name
+                                </option>
                                 break;
                             case 1:
-                                <option value="@item.Id">&nbsp;&nbsp;&nbsp;&nbsp; @item.Name </option>
+                                <option value="@item.Id">
+                                    &nbsp;&nbsp;&nbsp;&nbsp; @item.Name
+                                </option>
                                 break;
                             case 2:
-                                <option value="@item.Id">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @item.Name </option>
+                                <option value="@item.Id">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @item.Name
+                                </option>
                                 break;
                             default:
-                                <option value="@item.Id">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @item.Name </option>
+                                <option value="@item.Id">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @item.Name
+                                </option>
                                 break;
                         }
                     }

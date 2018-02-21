@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Solution.Data;
@@ -97,7 +99,11 @@ namespace Solution
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            CreateRoles(serviceProvider).Wait();
+            var context = serviceProvider.GetRequiredService<ApplicationDbContext>();
+            if ((context.Database.GetService<IDatabaseCreator>() as RelationalDatabaseCreator).Exists())
+            {
+                CreateRoles(serviceProvider).Wait();
+            }
         }
 
         private async Task CreateRoles(IServiceProvider serviceProvider)

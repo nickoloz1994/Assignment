@@ -19,7 +19,7 @@ namespace Solution.Models.UserSectorViewModels
         public List<Sector> SectorSelectList { get; set; } = new List<Sector>();
 
         [Required(ErrorMessage = "Please, select sectors you are involved in")]
-        public string[] SelectedSectors { get; set; }
+        public string[] SelectedSectors { get; set; } = new string[] { };
 
         [Required]
         [Display(Name = "Terms & Conditions")]
@@ -40,7 +40,7 @@ namespace Solution.Models.UserSectorViewModels
         public SelectList SelectionList { get; set; }
 
         [Display(Name = "New selection")]
-        public string[] NewSelection { get; set; }
+        public string[] NewSelection { get; set; } = new string[] { };
     }
 
     public class UserSectorDeleteViewModel
