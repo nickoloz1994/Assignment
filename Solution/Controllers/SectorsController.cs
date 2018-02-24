@@ -40,7 +40,7 @@ namespace Solution.Controllers
 
             var vm = new SectorCreateViewModel
             {
-                ParentSectorSelectList = GetCompleteList(sectors)
+                ParentSectorSelectList = _sectorRepository.GetCompleteList(sectors)
             };
 
             return View(vm);
@@ -131,61 +131,9 @@ namespace Solution.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var sector = _sectorRepository.GetAll().FirstOrDefault(s => s.Id == id);
-            await DeleteBranch(sector, _sectorRepository, _context);
+            await _sectorRepository.DeleteBranch(sector);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-        }
-
-        // method for getting sorted list of sectors
-        public List<Sector> GetSectorList(Sector sector)
-        {
-            List<Sector> list = new List<Sector>();
-
-            if (sector.Children.Count() > 0)
-            {
-                list.Add(sector);
-
-                foreach (var child in sector.Children)
-                {
-                    list.AddRange(GetSectorList(child));
-                }
-            }
-            else
-            {
-                list.Add(sector);
-            }
-
-            return list;
-        }
-
-        // method for generating complete list for menu
-        public List<Sector> GetCompleteList(IEnumerable<Sector> sectors)
-        {
-            List<Sector> menuItems = new List<Sector>();
-
-            foreach (var item in sectors)
-            {
-                if (item.HierarchyLevel == 0)
-                {
-                    menuItems.AddRange(GetSectorList(item));
-                }
-            }
-
-            return menuItems;
-        }
-
-        // method for cascade DELETE operation
-        public async Task DeleteBranch(Sector sector, ISectorRepository repository, ApplicationDbContext context)
-        {
-            if (sector.Children.Count() > 0)
-            {
-                foreach (var child in sector.Children)
-                {
-                    await DeleteBranch(child, repository, context);
-                }
-            }
-
-            repository.Remove(sector);
         }
     }
 }

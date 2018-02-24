@@ -65,7 +65,7 @@ namespace Solution.Controllers
         {
             var vm = new UserSectorCreateViewModel();
             var sectors = await _sectorRepository.GetAllAsync();
-            vm.SectorSelectList = GetCompleteList(sectors);
+            vm.SectorSelectList = _sectorRepository.GetCompleteList(sectors);
             return View(vm);
         }
 
@@ -107,7 +107,7 @@ namespace Solution.Controllers
             }
 
             var sectors = _sectorRepository.GetAll();
-            vm.SectorSelectList = GetCompleteList(sectors);
+            vm.SectorSelectList = _sectorRepository.GetCompleteList(sectors);
             return View(vm);
         }
 
@@ -137,7 +137,7 @@ namespace Solution.Controllers
             {
                 UserName = userSector.UserName,
                 ID = userSector.UserSectorId,
-                SectorSelectList = GetCompleteList(sectors),
+                SectorSelectList = _sectorRepository.GetCompleteList(sectors),
                 SelectionList = new SelectList(selectedSectors, nameof(Sector.Id), nameof(Sector.Name))
             };
 
@@ -217,43 +217,6 @@ namespace Solution.Controllers
             await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
-        }
-
-        // method for getting sorted list of sectors
-        public List<Sector> GetSectorList(Sector sector)
-        {
-            List<Sector> list = new List<Sector>();
-
-            if (sector.Children.Count() > 0)
-            {
-                list.Add(sector);
-
-                foreach (var child in sector.Children)
-                {
-                    list.AddRange(GetSectorList(child));
-                }
-            }
-            else
-            {
-                list.Add(sector);
-            }
-
-            return list;
-        }
-
-        public List<Sector> GetCompleteList(IEnumerable<Sector> sectors)
-        {
-            List<Sector> menuItems = new List<Sector>();
-
-            foreach (var item in sectors)
-            {
-                if (item.Children.Count() > 0)
-                {
-                    menuItems.AddRange(GetSectorList(item));
-                }
-            }
-
-            return menuItems;
         }
     }
 }

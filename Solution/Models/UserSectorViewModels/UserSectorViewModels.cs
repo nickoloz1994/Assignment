@@ -16,7 +16,7 @@ namespace Solution.Models.UserSectorViewModels
         [Display(Name = "Name")]
         public string UserName { get; set; }
 
-        public List<Sector> SectorSelectList { get; set; } = new List<Sector>();
+        public IEnumerable<Sector> SectorSelectList { get; set; } = new List<Sector>();
 
         [Required(ErrorMessage = "Please, select sectors you are involved in")]
         public string[] SelectedSectors { get; set; } = new string[] { };
@@ -34,7 +34,7 @@ namespace Solution.Models.UserSectorViewModels
         public string UserName { get; set; }
 
         public int ID { get; set; }
-        public List<Sector> SectorSelectList { get; set; } = new List<Sector>();
+        public IEnumerable<Sector> SectorSelectList { get; set; } = new List<Sector>();
 
         [Display(Name = "Old selection")]
         public SelectList SelectionList { get; set; }
